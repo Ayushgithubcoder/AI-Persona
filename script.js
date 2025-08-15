@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const personaName = document.getElementById("persona-name");
   const hiteshBtn = document.getElementById("hitesh-btn");
   const piyushBtn = document.getElementById("piyush-btn");
-
+  const restartBtn = document.getElementById("restart-btn");
   let currentPersona = "hitesh";
 
   let chatHistories = JSON.parse(localStorage.getItem("chatHistories")) || {
@@ -54,18 +54,14 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await fetch("http://localhost:3000/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           persona: currentPersona,
           messages: chatHistories[currentPersona],
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      if (!response.ok) throw new Error("Network response was not ok");
 
       const data = await response.json();
       const botReply = data.reply;
@@ -82,9 +78,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  const handleRestart = () => {
+    const isConfirmed = confirm(
+      "Are you sure you want to clear the chat history for this persona?"
+    );
+    if (isConfirmed) {
+      chatHistories[currentPersona] = [];
+      localStorage.setItem("chatHistories", JSON.stringify(chatHistories));
+      renderChatHistory();
+    }
+  };
+
   chatForm.addEventListener("submit", handleFormSubmit);
   hiteshBtn.addEventListener("click", () => switchPersona("hitesh"));
   piyushBtn.addEventListener("click", () => switchPersona("piyush"));
+  restartBtn.addEventListener("click", handleRestart);
 
   switchPersona("hitesh");
 });

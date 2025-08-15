@@ -4,12 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Chat Bot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="chat-container">
       <div class="header">
-        <h2>Chat with <span id="persona-name">Hitesh</span></h2>
+        <div class="header-top">
+          <h2>Chat with <span id="persona-name">Hitesh</span></h2>
+          <button id="restart-btn" title="Restart Chat">Restart</button>
+        </div>
         <div class="persona-switcher">
           <button id="hitesh-btn" class="active">Hitesh Choudhary</button>
           <button id="piyush-btn">Piyush Garg</button>
@@ -20,7 +29,7 @@
         <input
           type="text"
           id="message-input"
-          placeholder="Type your message..."
+          placeholder="Ask something..."
           autocomplete="off"
         />
         <button type="submit">Send</button>
